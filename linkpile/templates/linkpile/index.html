@@ -1,0 +1,40 @@
+{% load linkpile_tags pagination_tags %}
+
+<h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
+
+<form name="search" method="get" action="{% url "linkpile-index" %}">
+<input name="keywords" type="text" value=""/>
+<input name="submit" type="submit" value="search" />
+</form>
+
+{% if request.user and request.user.is_staff %}
+<form method="post" action="{% url "linkpile-new" %}">{% csrf_token %}
+{{ newlinkform.url }}
+<input type="submit" value="new link"/>
+</form>
+{% endif %}
+
+{% if tags %}
+<p>
+Selected tags:
+{% for tag in tags %}
+{{ tag }}
+{% endfor %}
+</p>
+{% endif %}
+
+{% autopaginate links 3 %}
+{% paginate %}
+
+<div id="linkpile-links">
+{% for link in links %}
+{% linkpile_link link %}
+{% endfor %}
+</div><!-- #linkpile-links -->
+
+{% paginate %}
+
+{% if random %}
+<h3>Random</h3>
+{% linkpile_link random %}
+{% endif %}

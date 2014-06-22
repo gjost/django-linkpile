@@ -1,3 +1,8 @@
 django>=1.5.1
 wheel==0.23.0
-# Additional requirements go here
+BeautifulSoup
+django-pagination
+django-tagging
+pytz
+requests
+tagging
