@@ -10,6 +10,6 @@ urlpatterns = patterns(
     url(r'^new/$', 'linkpile.views.new', name='linkpile-new'),
     url(r'^link/(?P<link_id>\d+)/edit/$', 'linkpile.views.edit', name='linkpile-edit'),
     url(r'^link/(?P<link_id>\d+)/$', 'linkpile.views.detail', name='linkpile-link'),
-    url(r'^(?P<tags>[\w+]+)/$', 'linkpile.views.tags', name='linkpile-tags'),
+    url(r'^(?P<tags>[\w.-]+)/$', 'linkpile.views.tags', name='linkpile-tags'),
     url(r'^$', 'linkpile.views.index', name='linkpile-index'),
 )
