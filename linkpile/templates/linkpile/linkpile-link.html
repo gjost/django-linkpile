@@ -1,6 +1,6 @@
 {% load tagging_tags tz %}
 <div id="link-{{ link.id }}" class="linkpile-link">
-  <h3><a href="{{ link.url }}">{% if link.title %}{{ link.title }}{% else %}{{ link.url }}{% endif %}</a></h3>
+  <h3><a href="{{ link.url }}">{% if link.title %}{{ link.title|safe }}{% else %}{{ link.url }}{% endif %}</a></h3>
   <p class="metadata">
     <a class="permalink" href="{{ link.absolute_url }}">#</a>&nbsp;
     <a class="archive" href="{{ link.archive_url }}">archive</a>
@@ -10,5 +10,5 @@
       <a href="{% url "linkpile-tags" tag %}">{{ tag }}</a>{% endfor %}
     </span>{% endif %}
   </p><!-- .metadata -->
-  {% if link.description %}<p class="description">{{ link.description }}</p>{% endif %}
+  {% if link.description %}<p class="description">{{ link.description|safe }}</p>{% endif %}
 </div><!-- .link -->
