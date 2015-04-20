@@ -100,6 +100,7 @@ def detail( request, link_id ):
         'linkpile/detail.html',
         {
             'link': link,
+            'newlinkform': LinkNewForm({}),
         },
         context_instance=RequestContext(request, processors=[app_context])
     )

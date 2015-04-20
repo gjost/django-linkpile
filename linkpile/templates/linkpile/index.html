@@ -2,6 +2,7 @@
 
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
+<p>
 <form name="search" method="get" action="{% url "linkpile-index" %}">
 <input name="keywords" type="text" value=""/>
 <input name="submit" type="submit" value="search" />
@@ -13,6 +14,7 @@
 <input type="submit" value="new link"/>
 </form>
 {% endif %}
+</p>
 
 {% if tags %}
 <p>

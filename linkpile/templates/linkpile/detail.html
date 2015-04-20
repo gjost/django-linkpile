@@ -1,5 +1,19 @@
 {% load linkpile_tags %}
 
+<p>
+<form name="search" method="get" action="{% url "linkpile-index" %}">
+<input name="keywords" type="text" value=""/>
+<input name="submit" type="submit" value="search" />
+</form>
+
+{% if request.user and request.user.is_staff %}
+<form method="post" action="{% url "linkpile-new" %}">{% csrf_token %}
+{{ newlinkform.url }}
+<input type="submit" value="new link"/>
+</form>
+{% endif %}
+</p>
+
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
 {% linkpile_link link %}
