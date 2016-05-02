@@ -6,6 +6,7 @@ from linkpile import views
 
 urlpatterns = [
     url(r'^feed/$', LinksFeed()),
+    url(r'^random/$', views.random, name='linkpile-random'),
     url(r'^export/$', views.export, name='linkpile-export'),
     url(r'^new/$', views.new, name='linkpile-new'),
     url(r'^link/(?P<link_id>\d+)/edit/$', views.edit, name='linkpile-edit'),
