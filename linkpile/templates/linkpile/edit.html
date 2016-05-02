@@ -29,6 +29,6 @@
 {% if link.others_in_domain %}
 <h3>Other links in this domain:</h3>
 <ul>{% for link in link.others_in_domain %}
-  <li><a href="{{ link.get_absolute_url }}">{{ link.title }}</a></li>{% endfor %}
+  <li><a href="{{ link.absolute_url }}">{{ link.title }}</a></li>{% endfor %}
 </ul>{% endif %}
 {% endblock content %}
