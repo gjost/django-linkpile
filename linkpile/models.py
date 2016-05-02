@@ -102,17 +102,19 @@ class Link( models.Model ):
     def get_random():
         """Gets a random Link; sometimes returns None
         """
-        max_id = Link.objects.order_by('-id')[0].id
-        random_id = random.randint(1, max_id + 1)
         link = None
-        attempts = 0
-        while( (not link) and (attempts < 10) ):
-            try:
-                link = Link.objects.get(id=random_id)
-            except:
-                pass
-            finally:
-                attempts = attempts + 1
+        objects_by_id = Link.objects.order_by('-id')
+        if objects_by_id:
+            max_id = objects_by_id[0].id
+            random_id = random.randint(1, max_id + 1)
+            attempts = 0
+            while( (not link) and (attempts < 10) ):
+                try:
+                    link = Link.objects.get(id=random_id)
+                except:
+                    pass
+                finally:
+                    attempts = attempts + 1
         return link
     
     @staticmethod
