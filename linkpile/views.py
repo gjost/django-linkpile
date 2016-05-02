@@ -5,13 +5,12 @@ import pytz
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseForbidden
-from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.shortcuts import Http404, get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from tagging.models import Tag, TaggedItem
+from tagging.models import TaggedItem
 
 from linkpile.models import Link
 from linkpile.forms import LinkNewForm, LinkEditForm
