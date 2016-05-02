@@ -5,31 +5,51 @@
 {% block content %}
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
-<p>
-<form name="search" method="get" action="{% url "linkpile-index" %}">
+<form id="linkpile-search" name="search" method="get" action="{% url "linkpile-index" %}">
 <input name="keywords" type="text" value=""/>
 <input name="submit" type="submit" value="search" />
 </form>
 
 {% if request.user and request.user.is_staff %}
-<form method="post" action="{% url "linkpile-new" %}">{% csrf_token %}
+<form id="linkpile-new" name="new" method="post" action="{% url "linkpile-new" %}">{% csrf_token %}
 {{ newlinkform.url }}
 <input type="submit" value="new link"/>
 </form>
 {% endif %}
-</p>
+
+<div id="linkpile-random">
+  <a href="{% url "linkpile-random" %}">Random</a>
+</div>
+
+{% if keywords %}
+<div id="linkpile-keywords">
+Search keywords:
+{{ keywords }}
+</div>
+{% endif %}
 
 {% if tags %}
-<p>
+<div id="linkpile-tags">
 Selected tags:
 {% for tag in tags %}
 {{ tag }}
 {% endfor %}
-</p>
+</div>
 {% endif %}
 
-{% autopaginate links 20 %}
-{% paginate %}
+<div class="pagination">
+  <span class="step-links">
+    {% if links.has_previous %}
+      <a href="?page={{ links.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ links.number }} of {{ links.paginator.num_pages }}.
+    </span>
+    {% if links.has_next %}
+      <a href="?page={{ links.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
 
 <div id="linkpile-links">
 {% for link in links %}
