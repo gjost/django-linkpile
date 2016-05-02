@@ -1,5 +1,8 @@
+{% extends "base.html" %}
 {% load tagging_tags tz %}
 
+
+{% block content %}
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
 <form method="post" action="">{% csrf_token %}
@@ -28,3 +31,4 @@
 <ul>{% for link in link.others_in_domain %}
   <li><a href="{{ link.get_absolute_url }}">{{ link.title }}</a></li>{% endfor %}
 </ul>{% endif %}
+{% endblock content %}

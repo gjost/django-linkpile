@@ -1,5 +1,8 @@
+{% extends "base.html" %}
 {% load tagging_tags %}
 
+
+{% block content %}
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
 <form method="post" action="">{% csrf_token %}
@@ -14,3 +17,4 @@
   </tr>
 </table>
 </form>
+{% block content %}

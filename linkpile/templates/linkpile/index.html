@@ -1,5 +1,8 @@
-{% load linkpile_tags pagination_tags %}
+{% extends "base.html" %}
+{% load linkpile_tags %}
 
+
+{% block content %}
 <h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
 
 <p>
@@ -33,10 +36,4 @@ Selected tags:
 {% linkpile_link link %}
 {% endfor %}
 </div><!-- #linkpile-links -->
-
-{% paginate %}
-
-{% if random %}
-<h3>Random</h3>
-{% linkpile_link random %}
-{% endif %}
+{% endblock content %}
