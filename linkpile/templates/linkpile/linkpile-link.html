@@ -10,5 +10,5 @@
       <a href="{% url "linkpile-tags" tag %}">{{ tag }}</a>{% endfor %}
     </span>{% endif %}
   </p><!-- .metadata -->
-  {% if link.description %}<p class="description">{{ link.description|safe }}</p>{% endif %}
+  {% if link.description %}<p class="description">{{ link.description|safe|linebreaks }}</p>{% endif %}
 </div><!-- .link -->
