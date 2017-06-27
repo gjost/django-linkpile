@@ -1,5 +1,5 @@
 django
-BeautifulSoup
+beautifulsoup4
 django-pagination
 django-tagging
 pytz

@@ -4,7 +4,7 @@ from datetime import datetime
 import random
 from urlparse import urlparse
 
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import pytz
 import requests
 
