@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.db.models import Q
-from django.shortcuts import Http404, get_object_or_404, render_to_response
+from django.shortcuts import Http404, get_object_or_404, render
 from django.template import RequestContext
 
 from tagging.models import TaggedItem
@@ -67,7 +67,8 @@ def index(request):
                     | links.filter(url__icontains = word) \
                     | links.filter(tags__icontains = word)
     links,show_perms = filter_by_user(links, request)
-    return render_to_response(
+    return render(
+        request,
         'linkpile/index.html',
         {
             'newlinkform': LinkNewForm({}),
@@ -75,7 +76,6 @@ def index(request):
             'show_perms': show_perms,
             'links': paginate(links, request),
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
 
 def tags(request, tags=None):
@@ -85,7 +85,8 @@ def tags(request, tags=None):
         links = TaggedItem.objects.get_by_model(Link, tags).order_by('-date')
         links,show_perms = filter_by_user(links, request)
         links = paginate(links, request)
-    return render_to_response(
+    return render(
+        request,
         'linkpile/index.html',
         {
             'newlinkform': LinkNewForm({}),
@@ -93,7 +94,6 @@ def tags(request, tags=None):
             'show_perms': show_perms,
             'links': links,
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
 
 def random(request):
@@ -108,14 +108,14 @@ def detail(request, link_id):
     link = get_object_or_404(Link, pk=link_id)
     if link.can_edit(request.user):
         link.can_edit = True
-    return render_to_response(
+    return render(
+        request,
         'linkpile/detail.html',
         {
             'newlinkform': LinkNewForm({}),
             'link': link,
             'random': request.GET.get('random', None),
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
 
 @login_required
@@ -145,14 +145,14 @@ def new(request):
         data = {}
         fields = ['url',]
         form = LinkNewForm(data)
-    return render_to_response(
+    return render(
+        request,
         'linkpile/new.html',
         {
             'link': link,
             'form': form,
             'show_errors': show_errors,
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
 
 @login_required
@@ -203,14 +203,14 @@ def edit(request, link_id):
             data['public'] = link.public
             data['shared'] = link.shared
         form = LinkEditForm(data)
-    return render_to_response(
+    return render(
+        request,
         'linkpile/edit.html',
         {
             'link': link,
             'form': form,
             'show_errors': show_errors,
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
 
 @login_required
@@ -220,11 +220,11 @@ def export(request):
     if not request.user.is_authenticated():
         raise Http404
     links = Link.objects.all().order_by('date')[:10]
-    return render_to_response(
+    return render(
+        request,
         'linkpile/export.html',
         {
             'links': links,
             'today': datetime.now(tz=TIMEZONE),
         },
-        context_instance=RequestContext(request, processors=[app_context])
     )
