@@ -7,6 +7,6 @@ def linkpile_link( obj ):
     """list-view template for Link
     """
     t = template.loader.get_template('linkpile/linkpile-link.html')
-    return t.render(template.Context({'link':obj}))
+    return t.render({'link':obj})
 
 register.simple_tag(linkpile_link)
