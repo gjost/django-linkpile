@@ -36,6 +36,12 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
+        'django',
+        'BeautifulSoup',
+        'django-pagination',
+        'django-tagging',
+        'pytz',
+        'requests',
     ],
     license="BSD",
     zip_safe=False,
