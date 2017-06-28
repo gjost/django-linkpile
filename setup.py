@@ -36,8 +36,8 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django',
-        'BeautifulSoup',
+        'Django',
+        'beautifulsoup4',
         'django-pagination',
         'django-tagging',
         'pytz',
