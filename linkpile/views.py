@@ -67,6 +67,10 @@ def index(request):
                     | links.filter(url__icontains = word) \
                     | links.filter(tags__icontains = word)
     links,show_perms = filter_by_user(links, request)
+    if links:
+        paginatedlinks = paginate(links, request)
+    else:
+        paginatedlinks = []
     return render(
         request,
         'linkpile/index.html',
@@ -74,7 +78,7 @@ def index(request):
             'newlinkform': LinkNewForm({}),
             'keywords': keywords,
             'show_perms': show_perms,
-            'links': paginate(links, request),
+            'links': paginatedlinks,
         },
     )
 
