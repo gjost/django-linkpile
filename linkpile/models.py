@@ -51,7 +51,21 @@ class Link( models.Model ):
         """Link URL at archive.org
         """
         return 'https://web.archive.org/web/*/%s' % self.url
-    
+
+    def to_dict(self):
+        return {
+            'user': self.user.username,
+            'family': self.family,
+            'friends': self.friends,
+            'public': self.public,
+            'shared': self.shared,
+            'title': self.title,
+            'description': self.description,
+            'url': self.url,
+            'date': self.date.isoformat(),
+            'tags': self.tags,
+        }
+
     def save( self, *args, **kwargs ):
         if not self.date:
             self.date = datetime.utcnow().replace(tzinfo=utc)

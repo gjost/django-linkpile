@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 import pytz
 
@@ -6,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.shortcuts import Http404, get_object_or_404, render
 from django.template import RequestContext
@@ -224,11 +225,17 @@ def export(request):
     if not request.user.is_authenticated():
         raise Http404
     links = Link.objects.all().order_by('date')[:10]
-    return render(
-        request,
-        'linkpile/export.html',
-        {
-            'links': links,
-            'today': datetime.now(tz=TIMEZONE),
-        },
+    #return render(
+    #    request,
+    #    'linkpile/export.html',
+    #    {
+    #        'links': links,
+    #        'today': datetime.now(tz=TIMEZONE),
+    #    },
+    #)
+    return HttpResponse(
+        json.dumps([
+            link.to_dict() for link in links
+        ]),
+        content_type="application/json"
     )
