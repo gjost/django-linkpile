@@ -5,6 +5,7 @@ import random
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
+from dateutil import parser
 import pytz
 import requests
 
@@ -51,6 +52,25 @@ class Link( models.Model ):
         """Link URL at archive.org
         """
         return 'https://web.archive.org/web/*/%s' % self.url
+
+    @staticmethod
+    def from_dict(data):
+        dt = pytz.timezone(settings.TIME_ZONE).localize(
+            parser.parse(data['date'])
+        )
+        link = Link(
+            user = User.objects.get(username=data['user']),
+            family = data['family'],
+            friends = data['friends'],
+            public = data['public'],
+            shared = data['shared'],
+            title = data['title'],
+            description = data['description'],
+            url = data['url'],
+            date = dt,
+            tags = data['tags'], # TODO tag objects
+        )
+        return link
 
     def to_dict(self):
         return {
