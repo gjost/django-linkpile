@@ -40,13 +40,13 @@ Selected tags:
 <div class="pagination">
   <span class="step-links">
     {% if links.has_previous %}
-      <a href="?page={{ links.previous_page_number }}">previous</a>
+      <a href="?page={{ links.previous_page_number }}&keywords={{ keywords }}">previous</a>
     {% endif %}
     <span class="current">
       Page {{ links.number }} of {{ links.paginator.num_pages }}.
     </span>
     {% if links.has_next %}
-      <a href="?page={{ links.next_page_number }}">next</a>
+      <a href="?page={{ links.next_page_number }}&keywords={{ keywords }}">next</a>
     {% endif %}
   </span>
 </div>
