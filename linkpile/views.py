@@ -60,7 +60,7 @@ def paginate(objects, request):
 
 def index(request):
     links = Link.objects.all().order_by('-date')
-    keywords = request.GET.get('keywords', None)
+    keywords = request.GET.get('keywords', '')
     if keywords:
         for word in keywords.split(' '):
             links = links.filter(title__icontains = word) \
