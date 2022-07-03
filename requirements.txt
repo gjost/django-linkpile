@@ -1,0 +1,7 @@
+django<2.0.0
+beautifulsoup4
+django-pagination
+django-tagging
+python-dateutil
+pytz
+requests

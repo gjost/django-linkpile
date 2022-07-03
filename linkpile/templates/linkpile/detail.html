@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load linkpile_tags %}
+
+
+{% block content %}
+<h1><a href="{% url "linkpile-index" %}">linkpile</a></h1>
+
+{% if random %}
+<div id="linkpile-random">
+  <a href="{% url "linkpile-random" %}">Random</a>
+</div>
+{% endif %}
+
+{% linkpile_link link %}
+
+{% if link.others_in_domain %}
+<h3>Other links in this domain:</h3>
+<ul>{% for link in link.others_in_domain %}
+  <li><a href="{{ link.absolute_url }}">{{ link.title }}</a></li>{% endfor %}
+</ul>{% endif %}
+{% endblock content %}
